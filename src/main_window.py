@@ -52,24 +52,17 @@ class UiMainWindow:
         self.copy_password_to_clipboard.setObjectName("copy_password_to_clipboard")
         self.copy_password_to_clipboard.setGeometry(QRect(490, 100, 61, 51))
         self.copy_password_to_clipboard.setStyleSheet(
-            "border: 1px solid rgb(255, 255, 255);\n"
+            "border: 1px solid rgb(255, 255, 255);"
             "border-radius: 10px;"
-        )
-
-        self.use_lowercase_letters = QPushButton(self.main_widget)
-        self.use_lowercase_letters.setCheckable(True)
-        self.use_lowercase_letters.setObjectName("use_lowercase_letters")
-        self.use_lowercase_letters.setGeometry(QRect(10, 280, 91, 51))
-        self.use_lowercase_letters.setStyleSheet(
-            "border: 1px solid rgb(255, 255, 255);\n"
-            "border-radius: 10px;\n"
-            "color: rgb(255, 255, 255);"
         )
 
         self.password_length = QSlider(self.main_widget)
         self.password_length.setObjectName("password_length")
         self.password_length.setGeometry(QRect(30, 220, 351, 22))
         self.password_length.setOrientation(Qt.Horizontal)
+        self.password_length.setStyleSheet(
+            "background-color: rgb(191, 191, 191);"
+        )
 
         self.password_length_view = QLabel(self.main_widget)
         self.password_length_view.setObjectName("password_length_view")
@@ -80,31 +73,44 @@ class UiMainWindow:
             "color: rgb(255, 255, 255);"
         )
 
+        self.use_lowercase_letters = QPushButton(self.main_widget)
+        self.use_lowercase_letters.setCheckable(True)
+        self.use_lowercase_letters.setObjectName("use_lowercase_letters")
+        self.use_lowercase_letters.setGeometry(QRect(10, 280, 91, 51))
+        self.use_lowercase_letters.setStyleSheet(
+            "border: 1px solid rgb(255, 255, 255);"
+            "border-radius: 10px;"
+            "color: rgb(255, 255, 255);"
+        )
+
         self.use_uppercase_letters = QPushButton(self.main_widget)
+        self.use_uppercase_letters.setCheckable(True)
         self.use_uppercase_letters.setObjectName("use_uppercase_letters")
         self.use_uppercase_letters.setGeometry(QRect(120, 280, 91, 51))
         self.use_uppercase_letters.setStyleSheet(
-            "border: 1px solid rgb(255, 255, 255);\n"
-            "border-radius: 10px;\n"
-            "color: rgb(255, 255, 255);\n"
+            "border: 1px solid rgb(255, 255, 255);"
+            "border-radius: 10px;"
+            "color: rgb(255, 255, 255);"
         )
 
         self.use_numbers = QPushButton(self.main_widget)
+        self.use_numbers.setCheckable(True)
         self.use_numbers.setObjectName("use_numbers")
         self.use_numbers.setGeometry(QRect(230, 280, 91, 51))
         self.use_numbers.setStyleSheet(
-            "border: 1px solid rgb(255, 255, 255);\n"
-            "border-radius: 10px;\n"
-            "color: rgb(255, 255, 255);\n"
+            "border: 1px solid rgb(255, 255, 255);"
+            "border-radius: 10px;"
+            "color: rgb(255, 255, 255);"
         )
 
         self.use_special_chars = QPushButton(self.main_widget)
+        self.use_special_chars.setCheckable(True)
         self.use_special_chars.setObjectName("use_special_chars")
         self.use_special_chars.setGeometry(QRect(340, 280, 91, 51))
         self.use_special_chars.setStyleSheet(
-            "border: 1px solid rgb(255, 255, 255);\n"
-            "border-radius: 10px;\n"
-            "color: rgb(255, 255, 255);\n"
+            "border: 1px solid rgb(255, 255, 255);"
+            "border-radius: 10px;"
+            "color: rgb(255, 255, 255);"
         )
 
         main_window.setCentralWidget(self.main_widget)
