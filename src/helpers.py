@@ -7,7 +7,7 @@ def get_random_symbol(symbols: str) -> str:
     return symbols[randrange(len(symbols))]
 
 
-def get_random_number(start=0, end=11) -> int:
+def get_random_number(start=0, end=10) -> int:
     return randrange(start, end)
 
 

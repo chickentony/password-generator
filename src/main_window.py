@@ -58,10 +58,31 @@ class UiMainWindow:
 
         self.password_length = QSlider(self.main_widget)
         self.password_length.setObjectName("password_length")
+        self.password_length.setMaximum(40)
         self.password_length.setGeometry(QRect(30, 220, 351, 22))
         self.password_length.setOrientation(Qt.Horizontal)
         self.password_length.setStyleSheet(
-            "background-color: rgb(191, 191, 191);"
+            """
+            QSlider::groove:horizontal {
+                border: 1px solid #999999;
+                height: 5px;
+                background: gray;
+                margin: 2px 0;
+            }
+            
+            QSlider::handle:horizontal {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
+                border: 1px solid #5c5c5c;
+                border-radius: 10px;
+                width: 18px;
+                margin: -8px 0; 
+                border-radius: 3px;
+            }
+
+            QSlider::sub-page:horizontal {
+                background: green;
+            }
+            """
         )
 
         self.password_length_view = QLabel(self.main_widget)
