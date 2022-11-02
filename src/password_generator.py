@@ -2,7 +2,7 @@ from string import ascii_lowercase, ascii_uppercase, punctuation
 from typing import List
 from random import randrange
 
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QApplication
 
 from src.main_window import UiMainWindow
 from src.helpers import get_random_symbol, get_random_number
@@ -20,11 +20,12 @@ class PasswordGenerator(QMainWindow):
         self.ui.use_numbers.clicked.connect(self.change_style_on_button_push)
         self.ui.generate_password_button.clicked.connect(self.generate_password)
         self.ui.password_length.valueChanged[int].connect(self.change_password_length)
+        self.ui.copy_password_to_clipboard.clicked.connect(self.copy_to_clipboard)
 
     def change_style_on_button_push(self):
         if self.ui.use_lowercase_letters.isChecked():
             self.ui.use_lowercase_letters.setStyleSheet(
-                "background-color: rgb(66, 245, 84);"
+                "background-color: rgb(3, 160, 98);"
                 "border: 1px solid rgb(255, 255, 255);"
                 "border-radius: 10px;"
             )
@@ -37,7 +38,7 @@ class PasswordGenerator(QMainWindow):
 
         if self.ui.use_uppercase_letters.isChecked():
             self.ui.use_uppercase_letters.setStyleSheet(
-                "background-color: rgb(66, 245, 84);"
+                "background-color: rgb(3, 160, 98);"
                 "border: 1px solid rgb(255, 255, 255);"
                 "border-radius: 10px;"
             )
@@ -50,7 +51,7 @@ class PasswordGenerator(QMainWindow):
 
         if self.ui.use_special_chars.isChecked():
             self.ui.use_special_chars.setStyleSheet(
-                "background-color: rgb(66, 245, 84);"
+                "background-color: rgb(3, 160, 98);"
                 "border: 1px solid rgb(255, 255, 255);"
                 "border-radius: 10px;"
             )
@@ -63,7 +64,7 @@ class PasswordGenerator(QMainWindow):
 
         if self.ui.use_numbers.isChecked():
             self.ui.use_numbers.setStyleSheet(
-                "background-color: rgb(66, 245, 84);"
+                "background-color: rgb(3, 160, 98);"
                 "border: 1px solid rgb(255, 255, 255);"
                 "border-radius: 10px;"
             )
@@ -103,3 +104,8 @@ class PasswordGenerator(QMainWindow):
             result.append(str(get_random_number()))
 
         return result
+
+    def copy_to_clipboard(self):
+        clipboard = QApplication.clipboard()
+        clipboard.clear(mode=clipboard.Clipboard)
+        clipboard.setText(self.ui.show_password_field.text(), mode=clipboard.Clipboard)
