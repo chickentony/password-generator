@@ -32,7 +32,6 @@ class UiMainWindow:
                 color: white; 
                 border: white solid 1px
             };
-            
             background-color: rgb(0, 0, 0);
             """
         )
@@ -77,6 +76,33 @@ class UiMainWindow:
             """
         )
 
+        self.save_password_to_file = QPushButton(self.main_widget)
+        self.save_password_to_file.setGeometry(QRect(560, 100, 61, 51))
+        self.save_password_to_file.setStyleSheet(
+            """
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 10px;
+            """
+        )
+
+        self.password_complex_label = QLabel("Strength:", parent=self.main_widget)
+        self.password_complex_label.setGeometry(25, 160, 70, 20)
+        self.password_complex_label.setStyleSheet(
+            """
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            """
+        )
+
+        self.password_complex_value = QLabel(self.main_widget)
+        self.password_complex_value.setGeometry(100, 160, 70, 20)
+        self.password_complex_value.setStyleSheet(
+            """
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            """
+        )
+
         self.password_length = QSlider(self.main_widget)
         self.password_length.setObjectName("password_length")
         self.password_length.setMaximum(40)
@@ -90,7 +116,6 @@ class UiMainWindow:
                 background: gray;
                 margin: 2px 0;
             }
-            
             QSlider::handle:horizontal {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
                 border: 1px solid #5c5c5c;
@@ -99,7 +124,6 @@ class UiMainWindow:
                 margin: -8px 0; 
                 border-radius: 3px;
             }
-
             QSlider::sub-page:horizontal {
                 background: rgb(3, 160, 98);
             }
