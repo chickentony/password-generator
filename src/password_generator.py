@@ -115,8 +115,9 @@ class PasswordGenerator(QMainWindow):
 
     def save_password(self):
         print("Save password button clocked")
+        current_password_value = self.ui.show_password_field.text()
 
-        dialog = SavePasswordDialogWindow(self.ui.main_widget)
+        dialog = SavePasswordDialogWindow(self.ui.main_widget, current_password_value)
         dialog.exec()
         # dialog = QDialog(self.ui.main_widget)
         # dialog_buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
