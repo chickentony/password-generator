@@ -43,7 +43,8 @@ class SavePasswordDialogWindow(QDialog):
 
     def save_password(self):
         password_label_text = self.password_label.text()
-        # ToDo: решить вопрос с блокированием кнопки если поле с названием пароля пустое?
+        if not password_label_text:
+            password_label_text = "empty password label"
 
         with open("password.txt", "a") as file:
             file.write(f"{password_label_text} - {self.password}\n")

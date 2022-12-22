@@ -12,15 +12,9 @@ class CheckPasswordComplexity:
             "strength": False
         }
 
-    # @property
-    # def password_complexity(self):
-    #     return self._password_complexity
-
-    # @password_complexity.setter
     def set_password_complexity(self, key, value):
         self._password_complexity[key] = value
 
-    # @password_complexity.getter
     def get_password_complexity(self) -> str:
         for password_complexity_value, yes_or_no in self._password_complexity.items():
             if yes_or_no:
