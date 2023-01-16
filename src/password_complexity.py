@@ -83,6 +83,6 @@ class CheckPasswordComplexity:
         self.validate_rules_for_normal_complexity(password_length, password_complexity)
         self.validate_rules_for_weak_complexity(password_length, password_complexity)
 
-        print(f"Debug: {self._password_complexity}")
+        # print(f"Debug: {self._password_complexity}")
 
         return self.get_password_complexity()

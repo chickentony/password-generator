@@ -1,3 +1,4 @@
+import logging
 from string import ascii_lowercase, ascii_uppercase, punctuation
 from typing import List
 from random import randrange
@@ -13,18 +14,19 @@ from src.styles import CLICKED_BUTTON_STYLE, BUTTON_STYLE
 
 class PasswordGenerator(QMainWindow):
     """
-    Generate password logic and interaction with buttons copy and save buttons
+    Generate password logic and interaction with main interface parts.
     """
 
     def __init__(self, parent=None):
         """
         Set connection to methods that are called on buttons click.
 
-        :param parent:
+        :param parent: window in witch all other interface parts will be placed.
         """
         super(PasswordGenerator, self).__init__(parent)
         self.main_window = UiMainWindow(self)
         self.password_length = 0
+        self.logger = logging.getLogger("password_generator")
 
         self.main_window.use_lowercase_letters.clicked.connect(self.change_style_on_button_press)
         self.main_window.use_uppercase_letters.clicked.connect(self.change_style_on_button_press)
@@ -37,7 +39,7 @@ class PasswordGenerator(QMainWindow):
 
     def change_style_on_button_press(self) -> None:
         """
-        Change style of buttons when it clicked.
+        Change style of buttons on its click.
 
         :return: None
         """
@@ -63,41 +65,48 @@ class PasswordGenerator(QMainWindow):
 
     def generate_password(self) -> None:
         """
-        Generate new password with the specified options: length, what symbols to be used.
+        Generate new password with the specified options.
         Also check complexity of generate password.
 
         :return: None
         """
-
+        if not self.password_length:
+            self.logger.warning("Try generate password with zero password length")
+            return None
         password = ""
         password_complexity_checker = CheckPasswordComplexity()
 
-        print(f"Debug password length: {self.password_length}")
-        print(f"Debug checked a-z status: {self.main_window.use_lowercase_letters.isChecked()}")
-        print(f"Debug checked special chars status: {self.main_window.use_special_chars.isChecked()}")
+        self.logger.info("Start generate password")
         for _ in range(self.password_length):
             list_for_password_generation = self.get_clicked_buttons()
+            if not list_for_password_generation:
+                self.logger.warning("Try generate password with empty options")
+                return None
             password += list_for_password_generation[randrange(len(list_for_password_generation))]
+        self.logger.debug("Current password value is: %s", password)
+        self.logger.debug("Current password length is: %s", self.password_length)
 
         password_complexity = password_complexity_checker.validate_password(password)
-        print(f"Debug password complexity {password_complexity}")
+        self.logger.debug("Password complexity is: %s", password_complexity)
         self.main_window.password_complex_value.setText(password_complexity)
         self.main_window.show_password_field.setText(password)
+        self.logger.info("Finish generate password successfully")
         password_complexity_checker.reset_password_complexity()
 
-    def change_password_length(self, value) -> None:
+    def change_password_length(self, slider_value: int) -> None:
         """
+        Set number of password symbols in window near horizontal slider.
 
-        :param value:
+        :param slider_value: generate when slider moving
         :return: None
         """
 
-        self.password_length = value
-        self.main_window.password_length_view.setText(str(value))
+        self.password_length = slider_value
+        self.main_window.password_length_view.setText(str(slider_value))
 
     def get_clicked_buttons(self) -> List[str]:
         """
-        Get symbols depending on what buttons user click
+        Generate list of chars depending on what buttons user click.
 
         :return: list of chars
         """
@@ -117,12 +126,10 @@ class PasswordGenerator(QMainWindow):
 
     def save_password_to_file(self) -> None:
         """
-        Save current password value to file.
+        Get current password value from password field and save it to file.
 
         :return: None
         """
-
-        print("Save password button clocked")
         current_password_value = self.main_window.show_password_field.text()
 
         dialog = SavePasswordDialogWindow(self.main_window.main_widget, current_password_value)
@@ -134,7 +141,7 @@ class PasswordGenerator(QMainWindow):
 
         :return: None
         """
-
         clipboard = QApplication.clipboard()
         clipboard.clear(mode=clipboard.Clipboard)
         clipboard.setText(self.main_window.show_password_field.text(), mode=clipboard.Clipboard)
+        self.logger.info("Copy password to clipboard")
