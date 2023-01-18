@@ -23,11 +23,12 @@ class PasswordGenerator(QMainWindow):
 
         :param parent: window in witch all other interface parts will be placed.
         """
-        super(PasswordGenerator, self).__init__(parent)
+        super().__init__(parent)
         self.main_window = UiMainWindow(self)
         self.password_length = 0
         self.logger = logging.getLogger("password_generator")
 
+        # Connect methods with actions to UI components (buttons, widgets, etc)
         self.main_window.use_lowercase_letters.clicked.connect(self.change_style_on_button_press)
         self.main_window.use_uppercase_letters.clicked.connect(self.change_style_on_button_press)
         self.main_window.use_special_chars.clicked.connect(self.change_style_on_button_press)
@@ -92,6 +93,8 @@ class PasswordGenerator(QMainWindow):
         self.main_window.show_password_field.setText(password)
         self.logger.info("Finish generate password successfully")
         password_complexity_checker.reset_password_complexity()
+
+        return None
 
     def change_password_length(self, slider_value: int) -> None:
         """
