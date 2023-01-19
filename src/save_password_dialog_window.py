@@ -54,7 +54,7 @@ class SavePasswordDialogWindow(QDialog):
             self.logger.warning("Password label to save is empty. Set 'empty password label' text")
             password_label_text = "empty password label"
 
-        with open("password.txt", "a") as file:
+        with open("password.txt", "a", encoding="utf-8") as file:
             file.write(f"{password_label_text} - {self.password}\n")
         self.logger.debug(
             "Password '%s' with label '%s' will be saved to file",

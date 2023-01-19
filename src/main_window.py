@@ -9,12 +9,12 @@ from src.styles import (
 
 
 class UiMainWindow:
-    """Class with main layer and all widgets"""
+    """Class with main layer and all widgets."""
 
     def __init__(self, main_window: QMainWindow):
         """
 
-        :param main_window:
+        :param main_window: main window with all functional
         """
         if not main_window.objectName():
             main_window.setObjectName("main_window")
@@ -73,41 +73,83 @@ class UiMainWindow:
         self.password_length_view.setStyleSheet(OPTIONS_WINDOW_STYLE)
 
         self.use_lowercase_letters = QPushButton(self.main_widget)
-        self.use_lowercase_letters.setCheckable(True)
-        self.use_lowercase_letters.setObjectName("use_lowercase_letters")
-        self.use_lowercase_letters.setGeometry(QRect(10, 280, 91, 51))
-        self.use_lowercase_letters.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.lowercase_letters_option_button_settings()
 
         self.use_uppercase_letters = QPushButton(self.main_widget)
-        self.use_uppercase_letters.setCheckable(True)
-        self.use_uppercase_letters.setObjectName("use_uppercase_letters")
-        self.use_uppercase_letters.setGeometry(QRect(120, 280, 91, 51))
-        self.use_uppercase_letters.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.uppercase_letters_option_button_settings()
 
         self.use_numbers = QPushButton(self.main_widget)
-        self.use_numbers.setCheckable(True)
-        self.use_numbers.setObjectName("use_numbers")
-        self.use_numbers.setGeometry(QRect(230, 280, 91, 51))
-        self.use_numbers.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.numbers_option_button_settings()
 
         self.use_special_chars = QPushButton(self.main_widget)
-        self.use_special_chars.setCheckable(True)
-        self.use_special_chars.setObjectName("use_special_chars")
-        self.use_special_chars.setGeometry(QRect(340, 280, 91, 51))
-        self.use_special_chars.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.special_chars_option_button_settings()
 
         main_window.setCentralWidget(self.main_widget)
         self.statusbar = QStatusBar(main_window)
         self.statusbar.setObjectName("statusbar")
         main_window.setStatusBar(self.statusbar)
 
-        self.retranslate_ui(main_window)
+        self.set_initial_settings(main_window)
 
         QMetaObject.connectSlotsByName(main_window)
 
-    def retranslate_ui(self, main_window) -> None:
-        main_window.setWindowTitle(QCoreApplication.translate("MainWindow", "PasswordGenerator", None))
-        self.use_lowercase_letters.setText(QCoreApplication.translate("MainWindow", "a-z", None))
-        self.use_uppercase_letters.setText(QCoreApplication.translate("MainWindow", "A-Z", None))
-        self.use_numbers.setText(QCoreApplication.translate("MainWindow", "0-9", None))
+    def set_initial_settings(self, main_window: QMainWindow) -> None:
+        """
+        Set initial settings for widgets.
+
+        :param main_window: main window with all functional
+        :return: None
+        """
+        main_window.setWindowTitle(
+            QCoreApplication.translate("MainWindow", "PasswordGenerator", None)
+        )
+
+    def special_chars_option_button_settings(self) -> None:
+        """
+        Set styles, geometry, name and other options for button.
+
+        :return: None
+        """
+        self.use_special_chars.setCheckable(True)
+        self.use_special_chars.setObjectName("use_special_chars")
+        self.use_special_chars.setGeometry(QRect(340, 280, 91, 51))
+        self.use_special_chars.setStyleSheet(OPTIONS_WINDOW_STYLE)
         self.use_special_chars.setText(QCoreApplication.translate("MainWindow", "#$*", None))
+
+    def numbers_option_button_settings(self) -> None:
+        """
+        Set styles, geometry, name and other options for button.
+
+        :return: None
+        """
+        self.use_numbers.setCheckable(True)
+        self.use_numbers.setObjectName("use_numbers")
+        self.use_numbers.setGeometry(QRect(230, 280, 91, 51))
+        self.use_numbers.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.use_numbers.setText(QCoreApplication.translate("MainWindow", "0-9", None))
+
+    def uppercase_letters_option_button_settings(self) -> None:
+        """
+        Set styles, geometry, name and other options for button.
+
+        :return: None
+        """
+
+        self.use_uppercase_letters.setCheckable(True)
+        self.use_uppercase_letters.setObjectName("use_uppercase_letters")
+        self.use_uppercase_letters.setGeometry(QRect(120, 280, 91, 51))
+        self.use_uppercase_letters.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.use_uppercase_letters.setText(QCoreApplication.translate("MainWindow", "A-Z", None))
+
+    def lowercase_letters_option_button_settings(self) -> None:
+        """
+        Set styles, geometry, name and other options for button.
+
+        :return: None
+        """
+
+        self.use_lowercase_letters.setCheckable(True)
+        self.use_lowercase_letters.setObjectName("use_lowercase_letters")
+        self.use_lowercase_letters.setGeometry(QRect(10, 280, 91, 51))
+        self.use_lowercase_letters.setStyleSheet(OPTIONS_WINDOW_STYLE)
+        self.use_lowercase_letters.setText(QCoreApplication.translate("MainWindow", "a-z", None))
