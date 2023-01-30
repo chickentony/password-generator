@@ -6,3 +6,5 @@ ICON_FILE_NAMES = {
     "GENERATE_PASSWORD_ICON": "generate_password_icon.svg",
     "SAVE_PASSWORD_ICON": "save_password_icon.svg"
 }
+
+LOGGER_NAME = "password_generator"
