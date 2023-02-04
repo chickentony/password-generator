@@ -75,7 +75,7 @@ class PasswordGenerator(QMainWindow):
             self.logger.warning("Try generate password with zero password length")
             return None
         password = ""
-        password_complexity_checker = CheckPasswordComplexity()
+        # password_complexity_checker = CheckPasswordComplexity()
 
         self.logger.info("Start generate password")
         for _ in range(self.password_length):
@@ -87,12 +87,16 @@ class PasswordGenerator(QMainWindow):
         self.logger.debug("Current password value is: %s", password)
         self.logger.debug("Current password length is: %s", self.password_length)
 
-        password_complexity = password_complexity_checker.validate_password(password)
-        self.logger.debug("Password complexity is: %s", password_complexity)
-        self.main_window.password_complex_value.setText(password_complexity)
+        password_complexity = CheckPasswordComplexity(password)
+        self.logger.debug(
+            "Password complexity is: %s", password_complexity.get_password_complexity()
+        )
+        self.main_window.password_complex_value.setText(
+            password_complexity.get_password_complexity()
+        )
         self.main_window.show_password_field.setText(password)
         self.logger.info("Finish generate password successfully")
-        password_complexity_checker.reset_password_complexity()
+        # password_complexity_checker.reset_password_complexity()
 
         return None
 
