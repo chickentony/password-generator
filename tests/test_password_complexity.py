@@ -3,7 +3,7 @@ import pytest
 from src.password_complexity import CheckPasswordComplexity
 
 
-def test_init_check_password_complexity_object_with_invalid_arg_type_should_create_new_object():
+def test_init_check_password_complexity_object_with_valid_arg_type_should_create_new_object():
     password = "12-Jhd"
     expected_result = CheckPasswordComplexity(password)
 
@@ -117,3 +117,35 @@ def test_method_set_password_complexity_should_raise_exception_with_invalid_firs
 
     with pytest.raises(KeyError):
         check_password_object.set_password_complexity(invalid_value, True)
+
+
+def test_method_get_password_complexity_should_return_correct_password_complexity_name():
+    check_password_object = CheckPasswordComplexity("12-Jhd")
+    check_password_object._password_complexity = {
+        "weak": False,
+        "normal": True,
+        "strength": False
+    }
+    expected_result = "normal"
+
+    result = check_password_object.get_password_complexity()
+
+    assert result == expected_result, (
+        f"Expected result: {expected_result} doesnt equals actual result: {result}"
+    )
+
+
+def test_method_get_password_complexity_should_return_unknown_password_complexity_name_if_can_not_determine_complexity():
+    check_password_object = CheckPasswordComplexity("12-Jhd")
+    check_password_object._password_complexity = {
+        "weak": False,
+        "normal": False,
+        "strength": False
+    }
+    expected_result = "Unknown"
+
+    result = check_password_object.get_password_complexity()
+
+    assert result == expected_result, (
+        f"Expected result: {expected_result} doesnt equals actual result: {result}"
+    )

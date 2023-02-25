@@ -40,6 +40,7 @@ class CheckPasswordComplexity:
         :param yes_or_no: set true or false
         :return: None
         """
+
         if not isinstance(password_complexity_name, str):
             self.logger.critical(
                 "Invalid argument type %s provided", type(password_complexity_name)
@@ -57,9 +58,11 @@ class CheckPasswordComplexity:
     def get_password_complexity(self) -> str:
         """
         Return value of password_complexity dict keys if its value is true.
+        If cant determine complexity return "Unknown" value.
 
         :return: value of password_complexity dict
         """
+
         password_complexity = "Unknown"
 
         for password_complexity_value, yes_or_no in self._password_complexity.items():
@@ -91,6 +94,22 @@ class CheckPasswordComplexity:
                 possible_password_chars["numbers"]
         ):
             self.set_password_complexity("strength", True)
+        if (
+                password_length >= self.STRENGTH_PASSWORD_LENGTH and
+                possible_password_chars["lowercase_letters"] and not
+                possible_password_chars["uppercase_letters"] and
+                possible_password_chars["numbers"] and
+                possible_password_chars["special_chars"]
+        ):
+            self.set_password_complexity("strength", True)
+        if (
+                password_length >= self.STRENGTH_PASSWORD_LENGTH and not
+                possible_password_chars["lowercase_letters"] and
+                possible_password_chars["uppercase_letters"] and
+                possible_password_chars["numbers"] and
+                possible_password_chars["special_chars"]
+        ):
+            self.set_password_complexity("strength", True)
 
     def validate_rules_for_normal_complexity(
             self,
@@ -101,6 +120,8 @@ class CheckPasswordComplexity:
         Check password for normal rule. Its valid if:
         - chosen lower and uppercase letters, numbers and length >= 8
         - chosen lower or uppercase letters, special chars and length >= 8
+        - chosen lower and upper case, numbers and length >= 8
+        - chosen lower case and uppercase letters, special chars and length >= 8
 
         :param password_length:
         :param possible_password_chars: dict of possible password chars, can contains:
@@ -135,6 +156,14 @@ class CheckPasswordComplexity:
         if (
                 password_length >= self.STRENGTH_PASSWORD_LENGTH and not
                 possible_password_chars["lowercase_letters"] and not
+                possible_password_chars["uppercase_letters"] and not
+                possible_password_chars["numbers"] and
+                possible_password_chars["special_chars"]
+        ):
+            self.set_password_complexity("normal", True)
+        if (
+                password_length >= self.STRENGTH_PASSWORD_LENGTH and
+                possible_password_chars["lowercase_letters"] and
                 possible_password_chars["uppercase_letters"] and not
                 possible_password_chars["numbers"] and
                 possible_password_chars["special_chars"]
@@ -184,7 +213,6 @@ class CheckPasswordComplexity:
         self.validate_rules_for_normal_complexity(password_length, password_complexity)
         self.validate_rules_for_weak_complexity(password_length, password_complexity)
         self.logger.info("Password complexity are: %s", self._password_complexity)
-        # return self.get_password_complexity()
 
     def __eq__(self, other) -> bool:
         result = self._password_complexity == other._password_complexity
