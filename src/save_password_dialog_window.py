@@ -10,6 +10,9 @@ from src.styles import (
 class SavePasswordDialogWindow(QDialog):
     """Save password window class."""
 
+    FILE_NAME = "password.txt"
+    ENCODING = "utf-8"
+
     def __init__(self, main_frame: QWidget, password_value: str):
         """
         Generate basic widgets and buttons.
@@ -54,7 +57,7 @@ class SavePasswordDialogWindow(QDialog):
             self.logger.warning("Password label to save is empty. Set 'empty password label' text")
             password_label_text = "empty password label"
 
-        with open("password.txt", "a", encoding="utf-8") as file:
+        with open(self.FILE_NAME, "a", encoding=self.ENCODING) as file:
             file.write(f"{password_label_text} - {self.password}\n")
         self.logger.debug(
             "Password '%s' with label '%s' will be saved to file",
